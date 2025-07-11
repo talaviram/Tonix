@@ -17,10 +17,17 @@ CPMAddPackage(
         "JUCE_ENABLE_MODULE_SOURCE_GROUPS ON"
 )
 
+CPMAddPackage(
+    GITHUB_REPOSITORY "free-audio/clap-juce-extensions"
+    GIT_TAG "ea834dfd366ab2103b98e92eaacb581c69fc2e0b"
+)
+
 set(COPY_DURING_DEV TRUE)
 
+set(BUNDLE_ID "com.talaviram.tonix")
+
 juce_add_plugin(${PLUGIN_NAME}
-    BUNDLE_ID "com.talaviram.tonix"
+    BUNDLE_ID ${BUNDLE_ID}
     COMPANY_NAME "Tal Aviram"
     IS_SYNTH FALSE
     NEEDS_MIDI_INPUT FALSE
@@ -32,6 +39,10 @@ juce_add_plugin(${PLUGIN_NAME}
     PLUGIN_CODE TonX
     FORMATS AU AAX VST3 Standalone
     PRODUCT_NAME ${PLUGIN_NAME})
+
+clap_juce_extensions_plugin(TARGET ${PLUGIN_NAME}
+        CLAP_ID ${BUNDLE_ID}
+        CLAP_FEATURES audio-effect distortion tape)
 
 target_sources(${PLUGIN_NAME}
     PRIVATE
