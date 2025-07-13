@@ -22,6 +22,17 @@ CPMAddPackage(
     GIT_TAG "ea834dfd366ab2103b98e92eaacb581c69fc2e0b"
 )
 
+include(cmake/FetchLicenses.cmake)
+set(INPUT_FILES
+    "${CMAKE_SOURCE_DIR}/cmake/BINARY_LICENSE.txt"
+    "${CMAKE_SOURCE_DIR}/cmake/JUCE_LICENSE.txt"
+    "${JUCE_SOURCE_DIR}/modules/juce_audio_plugin_client/AAX/SDK/LICENSE.txt"
+    "${JUCE_SOURCE_DIR}/modules/juce_audio_plugin_client/AU/AudioUnitSDK/LICENSE.txt"
+    "${JUCE_SOURCE_DIR}/modules/juce_audio_processors/format_types/VST3_SDK/pluginterfaces/LICENSE.txt"
+)
+set(OUTPUT_FILE "${CMAKE_BINARY_DIR}/LICENSE.txt")
+concat_files("${OUTPUT_FILE}" INPUT_FILES "${INPUT_FILES}")
+
 set(COPY_DURING_DEV TRUE)
 
 set(BUNDLE_ID "com.talaviram.tonix")
@@ -75,3 +86,6 @@ target_link_libraries(${PLUGIN_NAME}
         juce::juce_recommended_config_flags
         juce::juce_recommended_lto_flags
         juce::juce_recommended_warning_flags)
+
+# Packaging
+include(cmake/Packager.cmake)

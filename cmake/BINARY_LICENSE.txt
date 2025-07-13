@@ -1,0 +1,6 @@
+Tonix provided as is.
+While Tonix itself has no licensing constraints,
+It contains libraries that requires GPL compliance for simplest binary distribution.
+
+Below are collected most relevant licenses:
+
