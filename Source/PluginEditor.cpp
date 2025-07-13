@@ -1,6 +1,7 @@
 #include "PluginEditor.h"
 #include "BinaryData.h"
 #include "PluginProcessor.h"
+#include "GitHash.hpp"
 
 using namespace juce;
 
@@ -46,8 +47,12 @@ TonixEditor::TonixEditor (TonixProcessor& p)
     m_pluginName.setText ("TONIX", juce::dontSendNotification);
     m_pluginDesc.setFont (FontOptions().withHeight (15.0f));
     m_pluginDesc.setText ("Tape Emulation", juce::dontSendNotification);
+    m_buildDetails.setJustificationType (Justification::centredTop);
+    m_buildDetails.setFont (Font (FontOptions().withHeight (10.0f)));
+    m_buildDetails.setText (JucePlugin_VersionString + juce::String (" ") + juce::String(GitHash::shortSha1), juce::dontSendNotification);
     addAndMakeVisible (m_pluginName);
     addAndMakeVisible (m_pluginDesc);
+    addAndMakeVisible (m_buildDetails);
 
     const juce::Colour pinky (243, 0, 243);
 
@@ -147,6 +152,7 @@ void TonixEditor::resized()
     {
         auto topArea = bounds.removeFromTop (40);
         m_pluginName.setBounds (topArea.removeFromLeft (60));
+        m_buildDetails.setBounds (m_pluginName.getBounds().translated (0, +m_pluginName.getHeight()));
         m_pluginDesc.setBounds (topArea.removeFromLeft (100));
         m_redoButton.setBounds (topArea.removeFromRight (40).reduced (0, pad));
         m_undoButton.setBounds (topArea.removeFromRight (40).reduced (0, pad));

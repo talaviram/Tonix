@@ -39,7 +39,7 @@ public:
 
 private:
     juce::TextButton m_bypassButton, m_autoGainButton, m_undoButton, m_redoButton;
-    juce::Label m_pluginName, m_pluginDesc;
+    juce::Label m_pluginName, m_pluginDesc, m_buildDetails;
 
     struct SliderLabels
     {

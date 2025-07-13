@@ -22,6 +22,11 @@ CPMAddPackage(
     GIT_TAG "ea834dfd366ab2103b98e92eaacb581c69fc2e0b"
 )
 
+CPMAddPackage(
+    GITHUB_REPOSITORY "Svalorzen/GitHash"
+    GIT_TAG "91d0df1260bdfd69a04cb3d17a49dce0c4d3c24a"
+)
+
 include(cmake/FetchLicenses.cmake)
 set(INPUT_FILES
     "${CMAKE_SOURCE_DIR}/cmake/BINARY_LICENSE.txt"
@@ -81,6 +86,7 @@ juce_add_binary_data(BinaryData SOURCES
 target_link_libraries(${PLUGIN_NAME}
     PRIVATE
         BinaryData
+        githash
         juce::juce_audio_utils
     PUBLIC
         juce::juce_recommended_config_flags
