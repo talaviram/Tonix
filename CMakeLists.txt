@@ -6,9 +6,14 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 set(CMAKE_OSX_DEPLOYMENT_TARGET "10.14" CACHE STRING "macOS deployment target")
+set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64" CACHE STRING "macOS architectures")
+
+set(AAX_SIGN_GUID 33007520-63AF-11F0-908A-005056BC33E3 CACHE STRING "AAX Sign GUID")
 
 project(${PLUGIN_NAME} VERSION 1.0.0)
+
 include(cmake/CPM.cmake)
 CPMAddPackage(
     GITHUB_REPOSITORY "juce-framework/JUCE"
@@ -38,7 +43,12 @@ set(INPUT_FILES
 set(OUTPUT_FILE "${CMAKE_BINARY_DIR}/LICENSE.txt")
 concat_files("${OUTPUT_FILE}" INPUT_FILES "${INPUT_FILES}")
 
-set(COPY_DURING_DEV TRUE)
+# On Windows this would most likely fail unless running as admin
+if (NOT WIN32)
+    set(COPY_DURING_DEV TRUE)
+else()
+    set(COPY_DURING_DEV FALSE)
+endif()
 
 set(BUNDLE_ID "com.talaviram.tonix")
 
@@ -92,6 +102,18 @@ target_link_libraries(${PLUGIN_NAME}
         juce::juce_recommended_config_flags
         juce::juce_recommended_lto_flags
         juce::juce_recommended_warning_flags)
+
+if(AAX_SIGN_ID)
+    set_target_properties(${PLUGIN_NAME}_AAX PROPERTIES
+        XCODE_ATTRIBUTE_CODE_SIGNING_ALLOWED "NO"
+        XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY ""
+        XCODE_ATTRIBUTE_CODE_SIGNING_REQUIRED "NO"
+        XCODE_ATTRIBUTE_CODESIGNING_FOLDER_PATH ""
+    )
+    include(cmake/AAXSign.cmake)
+    get_target_property(AAX_PATH "${PLUGIN_NAME}_AAX" JUCE_PLUGIN_ARTEFACT_FILE)
+    sign_aax(${PLUGIN_NAME}_AAX ${AAX_PATH} ${AAX_SIGN_ID})
+endif()
 
 # Packaging
 include(cmake/Packager.cmake)
