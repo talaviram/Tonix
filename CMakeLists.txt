@@ -93,6 +93,12 @@ juce_add_binary_data(BinaryData SOURCES
     Source/Media/KNB_metal_pink_L.png
 )
 
+if(NOT LINUX)
+    set(CONDITIONAL_FLAGS "juce::juce_recommended_warning_flags")
+else()
+    set(CONDITIONAL_FLAGS "")
+endif()
+
 target_link_libraries(${PLUGIN_NAME}
     PRIVATE
         BinaryData
@@ -101,7 +107,7 @@ target_link_libraries(${PLUGIN_NAME}
     PUBLIC
         juce::juce_recommended_config_flags
         juce::juce_recommended_lto_flags
-        juce::juce_recommended_warning_flags)
+        ${CONDITIONAL_FLAGS})
 
 if(AAX_SIGN_ID)
     set_target_properties(${PLUGIN_NAME}_AAX PROPERTIES
