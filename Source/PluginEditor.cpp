@@ -63,7 +63,7 @@ TonixEditor::TonixEditor (TonixProcessor& p)
 
     m_bypassNotifier = std::make_unique<GenericListener> ([this]
                                                           {
-        const bool bypass = ! processorRef.apvts.getParameterAsValue ("bypass").getValue();
+        const bool bypass = processorRef.apvts.getRawParameterValue("bypass")->load() > 0.5f;
         for (auto* s : {&m_sliders.type, &m_sliders.brightness, &m_sliders.inputTrim, &m_sliders.outputTrim, &m_sliders.processPercentage})
         {
             s->setAlpha (bypass ? 0.5f : 1.0f);
