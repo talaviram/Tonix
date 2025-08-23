@@ -424,7 +424,7 @@ void TonixProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
     jassert (sizeInBytes >= 0);
     // restore
-    apvts.state.readFromData (data, static_cast<size_t> (sizeInBytes));
+    apvts.state = ValueTree::readFromData (data, static_cast<size_t> (sizeInBytes));
 }
 
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
