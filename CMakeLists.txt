@@ -17,14 +17,14 @@ project(${PLUGIN_NAME} VERSION 1.0.0)
 include(cmake/CPM.cmake)
 CPMAddPackage(
     GITHUB_REPOSITORY "juce-framework/JUCE"
-    GIT_TAG "8.0.8"
+    GIT_TAG "8.0.12"
     OPTIONS
         "JUCE_ENABLE_MODULE_SOURCE_GROUPS ON"
 )
 
 CPMAddPackage(
     GITHUB_REPOSITORY "free-audio/clap-juce-extensions"
-    GIT_TAG "ea834dfd366ab2103b98e92eaacb581c69fc2e0b"
+    GIT_TAG "645ed2fd0949d36639e3d63333f26136df6df769"
 )
 
 CPMAddPackage(
@@ -38,7 +38,7 @@ set(INPUT_FILES
     "${CMAKE_SOURCE_DIR}/cmake/JUCE_LICENSE.txt"
     "${JUCE_SOURCE_DIR}/modules/juce_audio_plugin_client/AAX/SDK/LICENSE.txt"
     "${JUCE_SOURCE_DIR}/modules/juce_audio_plugin_client/AU/AudioUnitSDK/LICENSE.txt"
-    "${JUCE_SOURCE_DIR}/modules/juce_audio_processors/format_types/VST3_SDK/pluginterfaces/LICENSE.txt"
+    "${JUCE_SOURCE_DIR}/modules/juce_audio_processors_headless/format_types/VST3_SDK/pluginterfaces/LICENSE.txt"
 )
 set(OUTPUT_FILE "${CMAKE_BINARY_DIR}/LICENSE.txt")
 concat_files("${OUTPUT_FILE}" INPUT_FILES "${INPUT_FILES}")
