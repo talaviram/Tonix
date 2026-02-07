@@ -140,7 +140,7 @@ TonixEditor::~TonixEditor()
 
 void TonixEditor::paint (juce::Graphics& g)
 {
-    const auto gf = ColourGradient::vertical (Colours::darkgrey, 0, Colours::grey, getHeight());
+    const auto gf = ColourGradient::vertical (Colours::darkgrey, 0, Colours::grey, static_cast<float> (getHeight()));
     g.setGradientFill (gf);
     g.fillAll();
 }
