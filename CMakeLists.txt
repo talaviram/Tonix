@@ -12,6 +12,7 @@ set(CMAKE_OSX_DEPLOYMENT_TARGET "10.14" CACHE STRING "macOS deployment target")
 set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64" CACHE STRING "macOS architectures")
 
 set(AAX_SIGN_GUID 33007520-63AF-11F0-908A-005056BC33E3 CACHE STRING "AAX Sign GUID")
+set(COPY_DURING_DEV FALSE CACHE BOOL "Whether to copy the plugin to the system plugin folder during development")
 
 project(${PLUGIN_NAME} VERSION 1.0.0)
 
@@ -43,13 +44,6 @@ set(INPUT_FILES
 )
 set(OUTPUT_FILE "${CMAKE_BINARY_DIR}/LICENSE.txt")
 concat_files("${OUTPUT_FILE}" INPUT_FILES "${INPUT_FILES}")
-
-# On Windows this would most likely fail unless running as admin
-if (NOT WIN32)
-    set(COPY_DURING_DEV TRUE)
-else()
-    set(COPY_DURING_DEV FALSE)
-endif()
 
 set(BUNDLE_ID "com.talaviram.tonix")
 
