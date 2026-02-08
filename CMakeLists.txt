@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.22)
 
 set(PLUGIN_NAME Tonix)
+set(COMPANY_NAME "Tal Aviram")
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -54,7 +55,7 @@ set(BUNDLE_ID "com.talaviram.tonix")
 
 juce_add_plugin(${PLUGIN_NAME}
     BUNDLE_ID ${BUNDLE_ID}
-    COMPANY_NAME "Tal Aviram"
+    COMPANY_NAME ${COMPANY_NAME}
     IS_SYNTH FALSE
     NEEDS_MIDI_INPUT FALSE
     NEEDS_MIDI_OUTPUT FALSE
